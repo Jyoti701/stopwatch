@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stopwatch</title>
+    <style>
+      .stopwatch_container {
+        width: 30%;
+        margin: auto;
+        background-color: rgb(230, 230, 230);
+        border-radius: 8px;
+      }
+      .stopwatch_display {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        padding: 10px;
+      }
+      .btn_container {
+        display: flex;
+        justify-content: space-evenly;
+        padding-bottom: 20px;
+      }
+      .ss {
+        font-size: 24px;
+      }
+      button.start_btn {
+        /* background-blend-mode: lighten; */
+        background: green;
+        color: white;
+        border: none;
+        outline: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+      }
+      button.pause_btn {
+        /* background-blend-mode: lighten; */
+        background: rgb(7, 38, 153);
+        color: white;
+        border: none;
+        outline: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+      }
+      button.rest_btn {
+        /* background-blend-mode: lighten; */
+        background: rgb(52, 1, 8);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+        padding: 5px 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stopwatch_container">
+      <div class="stopwatch_display">
+        <span class="min ss">00</span>:<span class="sec ss">00</span>:<span
+          class="msec ss"
+          >00</span
+        >
+      </div>
+      <div class="btn_container">
+        <button class="start_btn" onclick="startfn()">Start</button>
+        <button class="pause_btn" onclick="pausefn()">Pause</button>
+        <button class="rest_btn" onclick="restfn()">Rest</button>
+      </div>
+    </div>
+    <script>
+      let msecc = document.querySelector(".msec");
+      let second = document.querySelector(".sec");
+      let minute = document.querySelector(".min");
+      var msec = 0;
+      var min = 0;
+      var sec = 0;
+      let myintervalid;
+      function startfn() {
+        clearInterval(myintervalid);
+        myintervalid = setInterval(() => {
+          msec++;
+          msecc.innerHTML = msec;
+          if (msec === 100) {
+            msec = 0;
+            sec++;
+            if (sec === 60) {
+              sec = 0;
+              min++;
+            }
+
+            second.innerHTML = sec;
+            minute.innerHTML = min;
+          }
+        }, 10);
+      }
+
+      function pausefn() {
+        if (myintervalid != null) {
+          clearInterval(myintervalid);
+        }
+      }
+      function restfn() {
+        msec = sec = min = `00`;
+        clearInterval(myintervalid);
+        second.innerHTML = sec;
+        minute.innerHTML = min;
+        msecc.innerHTML = msec;
+      }
+    </script>
+  </body>
+</html>
